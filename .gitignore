@@ -30,3 +30,7 @@ proguard/
 
 # Android Studio captures folder
 captures/
+OneTapAndroidTest/.idea
+OneTapAndroidTest/gradlew
+OneTapAndroidTest/gradlew.bat
+OneTapAndroidTest/gradle/wrapper/gradle-wrapper.jar
