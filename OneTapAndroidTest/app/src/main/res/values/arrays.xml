@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="content_one">
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+        <item>content one</item>
+    </string-array>
+
+    <string-array name="content_two">
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+        <item>content two</item>
+    </string-array>
+
+    <string-array name="content_three">
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+        <item>content three</item>
+    </string-array>
+
+
+</resources>

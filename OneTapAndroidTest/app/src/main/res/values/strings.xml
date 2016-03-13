@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">OneTapAndroidTest</string>
+    <string name="tab_one">tab 1</string>
+    <string name="tab_two">tab 2</string>
+    <string name="tab_three">tab 3</string>
+</resources>
