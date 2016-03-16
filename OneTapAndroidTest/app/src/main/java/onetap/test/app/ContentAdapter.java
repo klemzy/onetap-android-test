@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import butterknife.Bind;
@@ -32,19 +31,8 @@ public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
             return new ContentHolder(view);
         } else {
-            LinearLayout view = new LinearLayout(parent.getContext());
+            View view = new View(parent.getContext());
             view.setLayoutParams(new RecyclerView.LayoutParams(headerWidth, pagerHeight + tabLayoutHeight));
-            view.setOrientation(LinearLayout.VERTICAL);
-
-//            View viewOne = new View(parent.getContext());
-//            viewOne.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, pagerHeight));
-//            view.addView(viewOne);
-//
-//            View viewTwo = new View(parent.getContext());
-//            viewTwo.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, tabLayoutHeight));
-//            viewTwo.setBackgroundResource(R.color.green);
-//            view.addView(viewTwo);
-
             return new HeaderHolder(view);
         }
     }
