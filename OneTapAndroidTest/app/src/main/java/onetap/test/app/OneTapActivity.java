@@ -104,6 +104,7 @@ public class OneTapActivity extends AppCompatActivity {
                         tabLayout.setTranslationY(translation);
 
                         OneTapRecyclerView recyclerView1 = (OneTapRecyclerView) recyclerView;
+                        //If tab layout is restored to original position by being flinged, start overshoot animation
                         if (translation == pagerContainer.getHeight() && set == null &&
                                 !recyclerView1.isTouched()) {
                             set = new AnimatorSet();
