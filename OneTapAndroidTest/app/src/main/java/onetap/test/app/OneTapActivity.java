@@ -1,5 +1,9 @@
 package onetap.test.app;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -9,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.OvershootInterpolator;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -30,6 +35,7 @@ public class OneTapActivity extends AppCompatActivity {
     @BindColor(R.color.white_77) int white_77;
 
     private int sumY = 0;
+    AnimatorSet set = null;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -41,7 +47,7 @@ public class OneTapActivity extends AppCompatActivity {
         contentList.addItemDecoration(new ContentAdapter.DividerDecoration(this));
         final ContentAdapter contentAdapter = new ContentAdapter(getResources().getStringArray(R.array.content_one));
 
-        TabLayout.Tab tab1 = tabLayout.newTab();
+        final TabLayout.Tab tab1 = tabLayout.newTab();
         tab1.setText(R.string.tab_one);
         tab1.setTag(R.array.content_one);
         TabLayout.Tab tab2 = tabLayout.newTab();
@@ -96,6 +102,27 @@ public class OneTapActivity extends AppCompatActivity {
                         //If scroll amount is less than pager view height, scroll tab to its original position
                         float translation = Math.min(pagerContainer.getHeight(), tabLayout.getTranslationY() + Math.abs(dy));
                         tabLayout.setTranslationY(translation);
+
+                        OneTapRecyclerView recyclerView1 = (OneTapRecyclerView) recyclerView;
+                        if (translation == pagerContainer.getHeight() && set == null &&
+                                !recyclerView1.isTouched()) {
+                            set = new AnimatorSet();
+                            set.setInterpolator(new OvershootInterpolator(7.0f));
+                            set.setDuration(300);
+                            set.playTogether(
+                                    ObjectAnimator.ofFloat(tabLayout, "translationY", tabLayout.getTranslationY(), tabLayout.getTranslationY() + 10, tabLayout.getTranslationY()),
+                                    ObjectAnimator.ofFloat(contentList, "translationY", 0, 10, 0)
+                            );
+                            set.addListener(new AnimatorListenerAdapter() {
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    super.onAnimationEnd(animation);
+                                    set = null;
+                                }
+                            });
+                            set.start();
+
+                        }
                     }
                 }
 
@@ -104,6 +131,7 @@ public class OneTapActivity extends AppCompatActivity {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+
             }
         });
 
@@ -113,7 +141,9 @@ public class OneTapActivity extends AppCompatActivity {
                 container.getViewTreeObserver().removeGlobalOnLayoutListener(this);
 
                 contentAdapter.setHeaderWidth(pagerContainer.getWidth());
-                contentAdapter.setHeaderHeight(pagerContainer.getHeight() + tabLayout.getHeight());
+                contentAdapter.setPagerHeight(pagerContainer.getHeight());
+                contentAdapter.setTabLayoutHeight(tabLayout.getHeight());
+
                 contentList.setAdapter(contentAdapter);
 
                 tabLayout.setTranslationY(pagerContainer.getHeight());
