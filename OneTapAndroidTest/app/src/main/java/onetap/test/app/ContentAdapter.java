@@ -13,28 +13,58 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentHolder> {
+public class ContentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private String[] content;
+
+    private int headerHeight = 0;
+    private int headerWidth = 0;
 
     public ContentAdapter(String[] content) {
         this.content = content;
     }
 
     @Override
-    public ContentHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
-        return new ContentHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (viewType != 0) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row, parent, false);
+            return new ContentHolder(view);
+        } else {
+            View view = new View(parent.getContext());
+            view.setLayoutParams(new RecyclerView.LayoutParams(headerWidth, headerHeight));
+            return new HeaderHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(ContentHolder holder, int position) {
-        holder.contentView.setText(content[position]);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if(holder instanceof ContentHolder) {
+            ContentHolder contentHolder = (ContentHolder) holder;
+            contentHolder.contentView.setText(content[position - 1]);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if(position == 0) {
+            return 0;
+        }else {
+            return 1;
+        }
     }
 
     @Override
     public int getItemCount() {
-        return content.length;
+        return content.length + 1;
+    }
+
+    public void setHeaderHeight(int headerHeight) {
+        this.headerHeight = headerHeight;
+    }
+
+    public void setHeaderWidth(int headerWidth) {
+        this.headerWidth = headerWidth;
     }
 
     public void updateContent(String[] content) {
@@ -49,6 +79,13 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ContentH
         public ContentHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+        }
+    }
+
+    public class HeaderHolder extends RecyclerView.ViewHolder {
+
+        public HeaderHolder(View itemView) {
+            super(itemView);
         }
     }
 
